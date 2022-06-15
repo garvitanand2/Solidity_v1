@@ -18,7 +18,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/PriceConvertor.sol": "PriceConverter"
+			"contracts/PriceConverter.sol": "PriceConverter"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -40,7 +40,7 @@
 				"dweb:/ipfs/QmeuxawUVBhMWQJXaEhhnubCTc4Jwn5wYK8gbhq6NjrpfG"
 			]
 		},
-		"contracts/PriceConvertor.sol": {
+		"contracts/PriceConverter.sol": {
 			"keccak256": "0xb6dc0c90a32e7e907bb516d3b248ea37b9e6e39b674d008921dd85e3badd7090",
 			"license": "MIT",
 			"urls": [

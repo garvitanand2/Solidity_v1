@@ -5,25 +5,32 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./PriceConverter.sol";
 
 
+
+error NotOwner();
+
 contract FundMe {
 
 // Get funds from user 
 // Withdraw funds
 // Set a minimum funding value in USD 
 
+
+// Constant and Immutable Keyword 
+
+
 using PriceConverter for uint256;
+uint256 public constant MINIMUM_USD =  50*1e18;
+address[] public  funders;
+address public  immutable i_owner;
+mapping(address => uint256) public addressToAmountFunded;
 
-uint256 public minimumUsd =  50*1e18;
-
-
-    address[] public funders;
-    mapping(address => uint256)public addressToAmountFunded;
+ 
    
 
     function fund() public payable {
         // Want to be able to set a minimum fund amount in USD
         // msg.value.getConversionRate();
-         require( msg.value.getConversionRate() >= minimumUsd, "Didn't send enough");  
+         require( msg.value.getConversionRate() >= MINIMUM_USD, "Didn't send enough");  
          funders.push(msg.sender);
          addressToAmountFunded[msg.sender] = msg.value;
          // 18 Decimal places 
@@ -57,8 +64,16 @@ uint256 public minimumUsd =  50*1e18;
     //         uint256 ethAmountInUsd =  (ethPrice *ethAmount) / 1e18;
     //     return ethAmountInUsd;
     // }
+  
+    constructor () {
+        i_owner = msg.sender;
 
-    function withdraw() public {
+    }
+    function withdraw() public onlyOwner {
+        // require(msg.sender == owner, "Sender is not owner!") ;
+
+        // Modifier 
+
         for ( uint256  funderIndex = 0; funderIndex < funders.length; funderIndex++){
                 address funder  = funders[funderIndex];
                 addressToAmountFunded[funder] =  0;
@@ -77,17 +92,45 @@ uint256 public minimumUsd =  50*1e18;
 
 
         //  2 Send 
-        bool sendSuccess =   payable(msg.sender.send(address(this).balance)); 
-        require(sendSuccess, "Send Failed");
+        // bool sendSuccess =   payable(msg.sender.send(address(this).balance)); 
+        // require(sendSuccess, "Send Failed");
 
 
         // 3 Call 
         //    (bool callSuccess, bytes memory dataReturned) =  payable(msg.sender.call{value:address(this).balance}(""));
-          (bool callSuccess,) =  payable(msg.sender.call{value:address(this).balance}("")); 
-          require(callSuccess, "Call Failed");
-
-
-
+         (bool callSuccess, ) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "Call failed");
 
     }
+
+    modifier onlyOwner {
+        // require(msg.sender == i_owner, "Sender is not owner!");
+        if(msg.sender != i_owner) {revert NotOwner();}
+        _;
+
+  
+    }
+
+
+    // recive()
+
+    receive() external payable{
+        fund();
+    }
+
+    fallback() external payable{
+        fund();
+    }
+    // fallback()
+
+
+// Pending to explore 
+// 1. Enums 
+// 2. Try / catch
+// 3. Function Selectors
+// 4. abi.encode / decode 
+// 5. Hashing
+// 6. Events 
+// 7. Yul / Assembly
+
 }

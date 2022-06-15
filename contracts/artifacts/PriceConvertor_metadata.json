@@ -32,12 +32,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/PriceConvertor.sol": {
-			"keccak256": "0xed3179c2bd2fb7010f51a765782d9a54b9f500be4fc72d96a408627a0d277a96",
+		"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol": {
+			"keccak256": "0xf2b6c9adb3552254df1445b73563cf014434ff5e78663e9b961b6c059506ceb5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2201862bb4cbe355438ae8a1c8df8eefc1780e566a088f12afffc44e19b0cf2e",
-				"dweb:/ipfs/QmazYPeWnsLxCE9eTKNkBdpGmb379ZWTQkTb5VGeEGGs3x"
+				"bzz-raw://6c1f59e0c7334c22fb54288728fc32546bdc9c8133d6db0d60223e3c28f52120",
+				"dweb:/ipfs/QmeuxawUVBhMWQJXaEhhnubCTc4Jwn5wYK8gbhq6NjrpfG"
+			]
+		},
+		"contracts/PriceConvertor.sol": {
+			"keccak256": "0xd7a7c2bbc60c4d22a65a1e336579f077f4a440a7e1617f2cc6820f5dac2594f8",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b0951c5bf9a6f65f838c7eb9be374a267d7fa0f62ecd38627f6bcd0577f483d6",
+				"dweb:/ipfs/QmXHeLSXfGai2iUXmTgJYnFDrZk3Y7EfbhMV5J1Wcp9BRE"
 			]
 		}
 	},
